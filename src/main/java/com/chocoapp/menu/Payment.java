@@ -1,9 +1,14 @@
 package com.chocoapp.menu;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 
 
 public class Payment {
+	private static Logger log=LogManager.getLogger(Payment.class);
 	static Scanner sc=new Scanner(System.in);
 	public static String takeCaptcha() {
 		int a = (int)(Math.random()*(9000-100+1)+100);  
@@ -11,12 +16,12 @@ public class Payment {
 		return b;
 	}
 	public static void PayMode() throws Exception {
-		System.out.println("Enter the payment mode");
-		System.out.println("1. UPI id");
-		System.out.println("2. Debit/Credit card");
-		System.out.println("3. Cash on Delivery");
-		System.out.println("4. Back");
-		System.out.println("5. Exit");
+		log.info("Enter the payment mode");
+		log.info("1. UPI id");
+		log.info("2. Debit/Credit card");
+		log.info("3. Cash on Delivery");
+		log.info("4. Back");
+		log.info("5. Exit");
 		int choice=sc.nextInt();
 		if(choice==1) {
 			PayOn(choice);
@@ -31,49 +36,49 @@ public class Payment {
 			BuyCandies.addCandy();
 		}
 		else if(choice==5) {
-			System.out.println("Thanks for shopping ! :)");
+			log.info("Thanks for shopping ! :)");
 			System.exit(0);
 		}
 		else {
-			System.out.println("Enter valid input");
+			log.warn("Enter valid input");
 			PayMode();
 		}
 	}
 	public static void PayOn(int a) throws Exception {
 		switch(a) {
 			case 1:
-					System.out.println("Enter your UPI id:");
+					log.info("Enter your UPI id:");
 					String upi=sc.next();
 						if (!upi.contains("@") || !upi.contains(".")) {
 							System.err.println("Invalid UPI");
-//							System.out.println("Enter valid UPI:");
+//							log.info("Enter valid UPI:");
 							PayOn(1);
 						}
 						else {
 							takeAddress();
 							int capt=captchaVerification();
 							if(capt==0) {
-							System.out.println("Paid Successful");
-						System.out.println("Returning you to main page");
+							log.info("Paid Successful");
+						log.info("Returning you to main page");
 							
 						}
 						}
 						break;
 			case 2:
-					System.out.println("Enter Debit/Credit Card number");
+					log.info("Enter Debit/Credit Card number");
 					String deb=sc.next();
 					sc.nextLine();
 					if(deb.length()==16) {
 						takeAddress();
 						int capt=captchaVerification();
 						if(capt==0) {
-							System.out.println("Paid Successful");
-							System.out.println("Returning you to main page");
+							log.info("Paid Successful");
+							log.info("Returning you to main page");
 							
 						}
 					}
 					else {
-						System.err.println("Invalid input");
+						log.warn("Invalid input");
 						PayOn(2);
 					}
 					break;
@@ -82,7 +87,7 @@ public class Payment {
 					int capt=captchaVerification();
 					if(capt==0) {
 							
-					System.out.println("Returning you to main page");				
+					log.info("Returning you to main page");				
 					}
 					break;
 		
@@ -90,13 +95,13 @@ public class Payment {
 	}
 	@SuppressWarnings("unused")
 	public static void takeAddress() {
-		System.out.println("Enter your address in one line:");
+		log.info("Enter your address in one line:");
 		String addres=sc.next();
 	}
 	public static int captchaVerification() {
 		String captcha=takeCaptcha();
-		System.out.println(captcha);
-		System.out.println("Enter the above captcha:");
+		log.info(captcha);
+		log.info("Enter the above captcha:");
 		String input=sc.next();
 		if(input.equals(captcha)) {
 			return 0;

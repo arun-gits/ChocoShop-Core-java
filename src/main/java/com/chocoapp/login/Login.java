@@ -1,16 +1,19 @@
 package com.chocoapp.login;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.chocoapp.Home;
-import com.chocoapp.Menu;
 import com.chocoapp.signup.RegisterIn;
 import com.chocoapp.signup.OverallValidation;
 import com.chocoapp.sqlconnection.SigningDAO;
 public class Login {
 	static Scanner sc=new Scanner(System.in);
+	private static Logger log=LogManager.getLogger(Login.class);
 	public static void loginUser() throws Exception {
 		//String email,String password
-		System.out.println("Enter your email");
+		log.info("Enter your email");
 		String email=sc.nextLine();
 		int chk4=OverallValidation.mailCheck(email);
 		while(chk4!=0) {
@@ -18,7 +21,7 @@ public class Login {
 			chk4=OverallValidation.mailCheck(email);
 		}
 		RegisterIn.setmail(email);
-		System.out.println("Enter your password:");
+		log.info("Enter your password:");
 		String password=sc.nextLine();
 		int ch3=OverallValidation.passwordCheck(password);
 		while(ch3!=0) {
@@ -28,11 +31,10 @@ public class Login {
 		RegisterIn.setPassword(password);
 		try {
 			OverallValidation.loginCheck(SigningDAO.signingDataCheck(RegisterIn.getmail()), RegisterIn.getpassword());
-			Menu.List();
 		} 
 		catch (Exception e) {
-			e.getMessage();
-			e.printStackTrace();
+			log.warn(e.getMessage());
+			//e.printStackTrace();
 			Home.HomePage();
 		}
 		

@@ -1,24 +1,29 @@
 package com.chocoapp.menu;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+
 public class MenuInterface {
 	static Scanner sc=new Scanner(System.in);
+	private static Logger log=LogManager.getLogger(MenuInterface.class);
 		public static int Menu() {
 			int option=0;
 			String choice=null;
-		System.out.println("1. Show all chocolates");
-		System.out.println("2. Buy chocolates");
-		System.out.println("3. Transaction Details");
-		System.out.println("4. Contact us");
-		System.out.println("5. Back");
-		System.out.println("6. Logout");
-		System.out.println("7. Exit");
-		System.out.println("Enter your choice:");
+		log.info("1. Show all chocolates");
+		log.info("2. Buy chocolates");
+		log.info("3. Transaction Details");
+		log.info("4. Contact us");
+		log.info("5. Back");
+		log.info("6. Logout");
+		log.info("7. Exit");
+		log.info("Enter your choice:");
 		choice=sc.nextLine();
 		option=choiceCheck(choice);
 		while(option==0) {
 			System.err.println("Invalid choice !");
-			System.out.println("Enter valid choice:");
+			log.warn("Enter valid choice:");
 			choice=sc.nextLine();
 			option=choiceCheck(choice);
 		}

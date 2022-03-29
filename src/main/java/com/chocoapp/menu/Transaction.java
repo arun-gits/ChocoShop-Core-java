@@ -5,11 +5,16 @@ import com.chocoapp.Menu;
 import com.chocoapp.signup.SessionID;
 import com.chocoapp.sqlconnection.CandyDAO;
 import java.util.Scanner;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.ResultSet;
 
 
 public class Transaction {
 	static Scanner sc=new Scanner(System.in);
+	private static Logger log=LogManager.getLogger(Transaction.class);
 	public static void transDetails() throws Exception {
 		int id=SessionID.getUserid();
 		String choconame=null;
@@ -20,23 +25,23 @@ public class Transaction {
 		for(int i=0;i<50;i++) {
 			System.out.printf("=");
 		}
-		System.out.println("\n");
+		log.info("\n");
 		while(details.next()) {
 			choconame=details.getString("name");
 			price=details.getInt("price");
 			purchased_on=details.getString("purchased_on");
-			System.out.println(choconame+"===>"+price+" purchased on "+purchased_on);
+			log.info(choconame+"===>"+price+" purchased on "+purchased_on);
 			total+=price;
 		}
 		if(choconame==null) {
-			System.err.println("No records found");
-			System.out.println("Enter 1 to main menu");
+			log.warn("No records found");
+			log.info("Enter 1 to main menu");
 			int b=sc.nextInt();
 			if(b==1) {
 				Menu.List();
 			}
 			else {
-				System.out.println("Wrong input! :(\nRefresh the page");
+				log.warn("Wrong input! :(\nRefresh the page");
 				System.exit(0);
 			}
 		}
@@ -44,18 +49,18 @@ public class Transaction {
 			for(int i=0;i<50;i++) {
 				System.out.printf("=");
 			}
-			System.out.println("\n");
-		System.out.println("Total Price===>"+total);
-		System.out.println("1. Back");
-		System.out.println("2. Exit");
-		System.out.println("Enter option:");
+			log.info("\n");
+		log.info("Total Price===>"+total);
+		log.info("1. Back");
+		log.info("2. Exit");
+		log.info("Enter option:");
 		int a=sc.nextInt();	
 		switch(a) {
 			case 1:
 				Menu.List();
 				break;
 			case 2:
-				System.out.println("Thanks for shopping ! :)");
+				log.info("Thanks for shopping ! :)");
 				System.exit(0);
 				break;
 			default:

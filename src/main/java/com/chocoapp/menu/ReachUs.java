@@ -1,30 +1,36 @@
 package com.chocoapp.menu;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.chocoapp.Menu;
+
+@SuppressWarnings("unused")
 public class ReachUs {
-	static Scanner sc=new Scanner(System.in)
-;	@SuppressWarnings("unused")
+	static Scanner sc=new Scanner(System.in);
+	private static Logger log=LogManager.getLogger(ReachUs.class);
+
 public static void contactUs() throws Exception {
-		System.out.println("Enter your name:");
+		log.info("Enter your name:");
 		String name=sc.next();
-		System.out.println("Enter your email:");
+		log.info("Enter your email:");
 		String email=sc.next();
-		System.out.println("Message without newline");
+		log.info("Message without newline");
 		String message=sc.next();
-		System.out.println("Thanks, we will reply you soon");
-		System.out.println("\n\n");
-		System.out.println("Also You can reach us at\n");
-		System.out.println("Email us: chocoshop@gmail.com");
-		System.out.println("Instagram: chocoshop_kvcet");
-		System.out.println("Website: www.chocoshop.com");
-		System.out.println("Enter 1 to back");
+		log.info("Thanks, we will reply you soon");
+		log.info("\n\n");
+		log.info("Also You can reach us at\n");
+		log.info("Email us: chocoshop@gmail.com");
+		log.info("Instagram: chocoshop_kvcet");
+		log.info("Website: www.chocoshop.com");
+		log.info("Enter 1 to back");
 		int a=sc.nextInt();
 		if(a==1) {
 			Menu.List();
 		}
 		else {
-			System.out.println("Sorry, wrong input!\nRefresh the page.");
+			log.warn("Sorry, wrong input!\nRefresh the page.");
 			System.exit(0);
 		}
 	}

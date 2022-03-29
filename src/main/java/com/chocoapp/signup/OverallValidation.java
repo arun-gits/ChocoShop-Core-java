@@ -1,19 +1,25 @@
 package com.chocoapp.signup;
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.chocoapp.AdminMenu;
 import com.chocoapp.Home;
+import com.chocoapp.Menu;
 
 import java.sql.ResultSet;
 
 public class OverallValidation {
 	static Scanner sc=new Scanner(System.in);
+	private static Logger log=LogManager.getLogger(OverallValidation.class);
 //	RegisterIn check=new RegisterIn(null, null, null, null);
 	// Checking name
 	public static int nameCheck(String name) {
 		int count=0;
 		if(name.isEmpty() || name.isBlank()) {
-			System.err.println("Name cannot be empty !");
-			System.out.println("Enter valid name:");
+			log.warn("Name cannot be empty !");
+			log.info("Enter valid name:");
 			count++;
 		}
 		return count;
@@ -23,8 +29,8 @@ public class OverallValidation {
 	public static int numberCheck(String number) {
 		int count=0;
 		if(number.length()!=10) {
-			System.err.println("Invalid number !!!");
-			System.out.println("Enter mobile number:");
+			log.warn("Invalid number !!!");
+			log.info("Enter mobile number:");
 			return 1;
 	}
 		else{
@@ -32,8 +38,8 @@ public class OverallValidation {
 				char ch=number.charAt(i);
 				if(!Character.isDigit(ch)) {
 					count++;
-					System.err.println("Invalid number !!!");
-					System.out.println("Enter mobile number:");
+					log.warn("Invalid number !!!");
+					log.info("Enter mobile number:");
 				break;
 			}
 			}
@@ -48,8 +54,8 @@ public class OverallValidation {
 //				count++;
 //			}
 //		if (count!=0) {
-//			System.err.println("Invalid number !!!");
-//			System.out.println("Enter mobile number:");
+//			log.warn("Invalid number !!!");
+//			log.info("Enter mobile number:");
 //			return 1;
 //		}
 //		else {
@@ -59,9 +65,9 @@ public class OverallValidation {
 	// Checks password
 	public static int passwordCheck(String password) {
 		if (password.isEmpty() || password.isBlank() || password.length() < 8 || password.length() > 16) {
-			System.err.println("Password should be minimum 8 characters and maximum 16 characters");
-			System.err.println("Invalid Password");
-			System.out.println("Enter password:");
+			log.warn("Password should be minimum 8 characters and maximum 16 characters");
+			log.warn("Invalid Password");
+			log.info("Enter password:");
 			return 1;
 		} 
 	else
@@ -71,8 +77,8 @@ public class OverallValidation {
 	// Checks mail
 	public static int mailCheck(String mail) {
 		if (!mail.contains("@") || !mail.contains(".")) {
-			System.err.println("Invalid mail");
-			System.out.println("Enter email:");
+			log.warn("Invalid mail");
+			log.info("Enter email:");
 			return 1;
 		} else
 			return 0;
@@ -80,29 +86,37 @@ public class OverallValidation {
 	public static void loginCheck(ResultSet check,String password) throws Exception {
 		String mail=null;
 		String key=null;
+		String role=null;
 		int id=0;
 		ResultSet data=check;
 		while(data.next()) {
 			mail=data.getString("email");
 			key=data.getString("password");
 			id=data.getInt("userid");
+			role=data.getString("user_role");
 		}
 		if(mail==null) {
 			throw new Exception("You're not a registered user\n Refresh the page");
 		}
 		else if(key.equals(password)) {
 			SessionID.setUserid(id);
-			System.out.println("Logging in...\nWelcome :)");
+			log.info("Logging in...\nWelcome :)");
+			if(role.equals("admin")) {
+				AdminMenu.adminMenu();
+			}
+			else if(role.equals("user")){
+				Menu.List();
+			}
 		}
 		else
 		{
-			System.err.println("Invalid Credentials ! :(");
-			 System.out.println("New User...? Signup!\nEnter 1 to home");
+			log.warn("Invalid Credentials ! :(");
+			 log.info("New User...? Signup!\nEnter 1 to home");
 			 String choice=sc.nextLine();
 			 if(choice.equals("1"))
 				Home.HomePage();
 			 else
-				 System.out.println("Sorry, wrong input!\nRefresh the page. :(");
+				 log.warn("Sorry, wrong input!\nRefresh the page. :(");
 			 	 System.exit(0);
 		}
 	}
@@ -115,7 +129,7 @@ public class OverallValidation {
 			throw new Exception("Error! You're an existing user :(");
 		}
 		else {
-			System.out.println("Thank You !");
+			log.info("Thank You !");
 			
 		}
 	

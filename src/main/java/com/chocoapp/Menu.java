@@ -5,8 +5,11 @@ import com.chocoapp.menu.MenuInterface;
 import com.chocoapp.menu.ReachUs;
 import com.chocoapp.menu.ShowAllChocolates;
 import com.chocoapp.menu.Transaction;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Menu {
+	private static Logger log=LogManager.getLogger(Home.class);
 	public static void List() throws Exception {
 		int i=MenuInterface.Menu();
 		switch(i){
@@ -33,7 +36,7 @@ public class Menu {
 				break;
 				//Logout
 			case 7:
-				System.out.println("Thanks for shopping! :)");
+				log.info("Thanks for shopping! :)");
 				System.exit(0);
 		}
 }
