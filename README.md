@@ -7,13 +7,15 @@ An employee can add a variety of chocolates to an inventory and manage offers fo
 Purpose We want to see that you can meet deadlines and that you can code.
 
 
-Technologies Used
+Technologies Used:
+
 Java
 Maven,
 MySQL,
 Git
 
-Features
+Features:
+
 User can buy any chocolates in the inventory with various offers, update their profile, view transactions.
 Admin can add/delete/update the chocolates list and view the user details and transactions as well as can make different offers.
 
@@ -27,7 +29,7 @@ To-do list:
 If chocolates stock is less, it should be notified to be admin.
 Discount and coupons should be added.
 
-Getting Started
+Getting Started:
 
 In windows command prompt >> git clone https://github.com/arun-gits/ChocoShop-Core-java/
 Imported the project as existing maven project in Eclipse tool.
