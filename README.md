@@ -32,16 +32,26 @@ Discount and coupons should be added.
 Getting Started:
 
 In windows command prompt >> git clone https://github.com/arun-gits/ChocoShop-Core-java/
+
 Imported the project as existing maven project in Eclipse tool.
+
 Created multiple tables regarding chocolates, orders and users in MySQL database.
+
 Added mysql-java-connector dependency in pom.xml file.
+
 Added Junit Testing and log24j dependencies and implementing in project.
 
 To run this project, we can clone this repository in our windows local machine.
+
 Click on project in eclipse tool, Run as maven install goals are (clean, compile, package install).
+
 The jar built for this project will be in target folder.
+
 Install Apache Maven 3.8.5
+
 In windows command prompt >> mvn -jar jarname or we can run in eclipse.
 
+
 Contributors
+
 Arun Kumar S
